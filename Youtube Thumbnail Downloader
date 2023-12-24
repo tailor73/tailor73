@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>YouTube Thumbnail Downloader</title>
+</head>
+<body>
+  <div class="container">
+    <h1>YouTube Thumbnail Downloader</h1>
+    <p>Enter YouTube video URL:</p>
+    <input type="text" id="videoUrl" placeholder="https://www.youtube.com/watch?v=your_video_id">
+    <button onclick="downloadThumbnail()">Download Thumbnail</button>
+    <div id="thumbnailContainer"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#thumbnailContainer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+function downloadThumbnail() {
+  var videoUrl = document.getElementById("videoUrl").value;
+  var videoId = getYouTubeVideoId(videoUrl);
+  if (videoId) {
+    var thumbnailUrl = "https://img.youtube.com/vi/" + videoId + "/maxresdefault.jpg";
+    var thumbnailContainer = document.getElementById("thumbnailContainer");
+    thumbnailContainer.innerHTML = '<img src="' + thumbnailUrl + '" alt="YouTube Thumbnail">';
+  } else {
+    alert("Invalid YouTube video URL. Please enter a valid URL.");
+  }
+}
+
+function getYouTubeVideoId(url) {
+  var videoId = url.match(/[?&]v=([^&#]+)/);
+  return videoId ? videoId[1] : null;
+}
